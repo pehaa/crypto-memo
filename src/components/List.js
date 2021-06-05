@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { useCurrencies } from "../hooks/useCurrencies"
 import Currency from "./Currency"
 
@@ -11,6 +11,12 @@ const List = () => {
 
   const [active, setActive] = useState(null)
   const displayedCurrencies = currencies.slice(0, 500)
+
+  // const hideDetails = () => setActive(null)
+  //const showDetails = (id) => setActive(id)
+
+  const hideDetails = useCallback(() => setActive(null), [])
+  const showDetails = useCallback((id) => setActive(id), [])
 
   return (
     <div className="container p-4 py-5 px-lg-5">
@@ -40,6 +46,8 @@ const List = () => {
                 key={el.id}
                 currency={el}
                 isActive={el.id === active}
+                showDetails={showDetails}
+                hideDetails={hideDetails}
                 setActive={setActive}
               />
             )

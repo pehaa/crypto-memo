@@ -1,5 +1,5 @@
 import { memo } from "react"
-const Currency = ({ currency, isActive, setActive }) => {
+const Currency = ({ currency, isActive, showDetails, hideDetails }) => {
   const { id, name, symbol, logo_url, ...rest } = currency
   return (
     <div className="shadow-sm p-2 mb-3">
@@ -18,14 +18,14 @@ const Currency = ({ currency, isActive, setActive }) => {
         {isActive ? (
           <button
             className="d-flex ms-auto btn btn-sm btn-dark"
-            onClick={() => setActive(null)}
+            onClick={hideDetails}
           >
             Hide details
           </button>
         ) : (
           <button
             className="d-flex ms-auto btn btn-sm btn-dark"
-            onClick={() => setActive(id)}
+            onClick={() => showDetails(id)}
           >
             Show details
           </button>
