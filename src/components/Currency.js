@@ -1,3 +1,4 @@
+import { memo } from "react"
 const Currency = ({ currency, isActive, setActive }) => {
   const { id, name, symbol, logo_url, ...rest } = currency
   return (
@@ -35,4 +36,4 @@ const Currency = ({ currency, isActive, setActive }) => {
   )
 }
 
-export default Currency
+export default memo(Currency)
