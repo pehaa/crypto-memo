@@ -1,18 +1,18 @@
 import { useEffect, useReducer } from "react"
 import { reducer } from "../reducers"
-export const useFonts = () => {
-  const [{ loading, error, fonts }, dispatch] = useReducer(reducer, {
+export const useCurrencies = () => {
+  const [{ loading, error, currencies }, dispatch] = useReducer(reducer, {
     loading: false,
     error: "",
-    fonts: []
+    currencies: []
   })
   useEffect(() => {
     let isCancelled = false
-    const API_KEY = "AIzaSyAvh74W2C5t8swxn1hkEAQzThw8f_fV9hE"
+    const API_KEY = "aa17f50136ad51b2b6a3237c39895a53a1a3d095"
 
     dispatch({ type: "FETCH_INIT" })
     fetch(
-      `https://www.googleapis.com/webfonts/v1/webfonts?sort=trending&key=${API_KEY}`
+      `https://api.nomics.com/v1/currencies/ticker?key=${API_KEY}&interval=1d,30d&convert=EUR`
     )
       .then((response) => {
         console.log(response)
@@ -24,7 +24,7 @@ export const useFonts = () => {
       .then((data) => {
         console.log(data)
         if (!isCancelled) {
-          dispatch({ type: "FETCH_SUCCESS", payload: data.items })
+          dispatch({ type: "FETCH_SUCCESS", payload: data })
         }
       })
       .catch((error) => {
@@ -37,5 +37,5 @@ export const useFonts = () => {
       isCancelled = true
     }
   }, [])
-  return { loading, error, fonts }
+  return { loading, error, currencies }
 }

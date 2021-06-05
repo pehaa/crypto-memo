@@ -10,7 +10,7 @@ export const reducer = (state, action) => {
         ...state,
         loading: false,
         error: "",
-        fonts: action.payload
+        currencies: action.payload
       }
     case "FETCH_FAILURE":
       return {

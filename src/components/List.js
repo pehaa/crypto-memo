@@ -1,40 +1,42 @@
 import { useState, useMemo } from "react"
-import { useFonts } from "../hooks/useFonts"
-import Font from "./Font"
+import { useCurrencies } from "../hooks/useCurrencies"
+
 import { matchSorter } from "match-sorter"
+import Currency from "./Currency"
+
+const getItems = (items, filter) => {
+  console.log("run get Items")
+  return filter
+    ? matchSorter(items, filter, { keys: ["name", "symbol"] })
+    : items
+}
 
 const List = () => {
-  const { error, loading, fonts } = useFonts()
-  const [active, setActive] = useState(0)
+  const { error, loading, currencies } = useCurrencies()
   const [filter, setFilter] = useState("")
-  const filteredFonts = useMemo(() => {
-    const start = window.performance.now()
-    console.log(filter)
-    const result = !filter
-      ? fonts
-      : matchSorter(fonts, filter, {
-          keys: ["family"]
-        })
-    const end = window.performance.now()
-    console.log(end - start)
-    return result
-  }, [fonts, filter])
+  const [, setForce] = useState(false)
+
+  const displayCurrencies = useMemo(() => {
+    const filteredCurrencies = getItems(currencies, filter)
+    console.log(filteredCurrencies.length)
+    return filteredCurrencies.slice(0, 500)
+  }, [filter, currencies])
+  console.log(displayCurrencies)
+  const [active, setActive] = useState(0)
+
   return (
     <div className="container p-4">
       {loading ? (
         <p>loading...</p>
       ) : (
         <>
-          <input
-            type="text"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
-          {filteredFonts.map((el, index) => {
+          <button onClick={() => setForce((f) => !f)}>Force reload</button>
+          <input value={filter} onChange={(e) => setFilter(e.target.value)} />
+          {displayCurrencies.map((el, index) => {
             return (
-              <Font
-                key={el.family}
-                font={el}
+              <Currency
+                key={el.id}
+                currency={el}
                 isActive={index === active}
                 index={index}
                 setActive={setActive}
