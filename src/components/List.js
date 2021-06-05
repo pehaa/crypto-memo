@@ -4,16 +4,10 @@ import Currency from "./Currency"
 
 const List = () => {
   const { error, loading, currencies } = useCurrencies()
-
-  /*
   const [filter, setFilter] = useState("")
-  */
 
   const [active, setActive] = useState(null)
   const displayedCurrencies = currencies.slice(0, 500)
-
-  // const hideDetails = () => setActive(null)
-  //const showDetails = (id) => setActive(id)
 
   const hideDetails = useCallback(() => setActive(null), [])
   const showDetails = useCallback((id) => setActive(id), [])
@@ -24,7 +18,6 @@ const List = () => {
         <p>loading... it can take a while...</p>
       ) : (
         <>
-          {/*
           <div className="mb-3">
             <label htmlFor="filter" className="form-label">
               Filter currencies
@@ -36,11 +29,10 @@ const List = () => {
               className="form-control"
             />
           </div>
-          */}
           <p>
             {displayedCurrencies.length} first results / {currencies.length}
           </p>
-          {displayedCurrencies.map((el, index) => {
+          {displayedCurrencies.map((el) => {
             return (
               <Currency
                 key={el.id}
