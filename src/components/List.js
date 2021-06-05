@@ -1,44 +1,45 @@
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { useCurrencies } from "../hooks/useCurrencies"
-
-import { matchSorter } from "match-sorter"
 import Currency from "./Currency"
-
-const getItems = (items, filter) => {
-  console.log("run get Items")
-  return filter
-    ? matchSorter(items, filter, { keys: ["name", "symbol"] })
-    : items
-}
 
 const List = () => {
   const { error, loading, currencies } = useCurrencies()
-  const [filter, setFilter] = useState("")
-  const [, setForce] = useState(false)
 
-  const displayCurrencies = useMemo(() => {
-    const filteredCurrencies = getItems(currencies, filter)
-    console.log(filteredCurrencies.length)
-    return filteredCurrencies.slice(0, 500)
-  }, [filter, currencies])
-  console.log(displayCurrencies)
-  const [active, setActive] = useState(0)
+  /*
+  const [filter, setFilter] = useState("")
+  */
+
+  const [active, setActive] = useState(null)
+  const displayedCurrencies = currencies.slice(0, 500)
 
   return (
-    <div className="container p-4">
+    <div className="container p-4 py-5 px-lg-5">
       {loading ? (
-        <p>loading...</p>
+        <p>loading... it can take a while...</p>
       ) : (
         <>
-          <button onClick={() => setForce((f) => !f)}>Force reload</button>
-          <input value={filter} onChange={(e) => setFilter(e.target.value)} />
-          {displayCurrencies.map((el, index) => {
+          {/*
+          <div className="mb-3">
+            <label htmlFor="filter" className="form-label">
+              Filter currencies
+            </label>
+            <input
+              id="filter"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="form-control"
+            />
+          </div>
+          */}
+          <p>
+            {displayedCurrencies.length} first results / {currencies.length}
+          </p>
+          {displayedCurrencies.map((el, index) => {
             return (
               <Currency
                 key={el.id}
                 currency={el}
-                isActive={index === active}
-                index={index}
+                isActive={el.id === active}
                 setActive={setActive}
               />
             )

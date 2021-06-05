@@ -8,8 +8,7 @@ export const useCurrencies = () => {
   })
   useEffect(() => {
     let isCancelled = false
-    const API_KEY = "aa17f50136ad51b2b6a3237c39895a53a1a3d095"
-
+    const API_KEY = process.env.REACT_APP_API_KEY
     dispatch({ type: "FETCH_INIT" })
     fetch(
       `https://api.nomics.com/v1/currencies/ticker?key=${API_KEY}&interval=1d,30d&convert=EUR`
@@ -22,7 +21,6 @@ export const useCurrencies = () => {
         return response.json()
       })
       .then((data) => {
-        console.log(data)
         if (!isCancelled) {
           dispatch({ type: "FETCH_SUCCESS", payload: data })
         }
