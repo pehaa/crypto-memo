@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react"
+import { matchSorter } from "match-sorter"
+import { useState, useCallback, useMemo } from "react"
 import { useCurrencies } from "../hooks/useCurrencies"
 import Currency from "./Currency"
 
@@ -7,7 +8,12 @@ const List = () => {
   const [filter, setFilter] = useState("")
 
   const [active, setActive] = useState(null)
-  const displayedCurrencies = currencies.slice(0, 500)
+  const displayedCurrencies = useMemo(() => {
+    const filteredCurrencies = filter
+      ? matchSorter(currencies, filter, { keys: ["name", "symbol"] })
+      : currencies
+    return filteredCurrencies.slice(0, 500)
+  }, [currencies, filter])
 
   const hideDetails = useCallback(() => setActive(null), [])
   const showDetails = useCallback((id) => setActive(id), [])
@@ -40,7 +46,6 @@ const List = () => {
                 isActive={el.id === active}
                 showDetails={showDetails}
                 hideDetails={hideDetails}
-                setActive={setActive}
               />
             )
           })}
