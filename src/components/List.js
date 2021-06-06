@@ -4,11 +4,6 @@ import Currency from "./Currency"
 
 const List = () => {
   const { error, loading, currencies } = useCurrencies()
-
-  /*
-  const [filter, setFilter] = useState("")
-  */
-
   const [active, setActive] = useState(null)
   const displayedCurrencies = currencies.slice(0, 500)
 
@@ -18,23 +13,10 @@ const List = () => {
         <p>loading... it can take a while...</p>
       ) : (
         <>
-          {/*
-          <div className="mb-3">
-            <label htmlFor="filter" className="form-label">
-              Filter currencies
-            </label>
-            <input
-              id="filter"
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          */}
           <p>
             {displayedCurrencies.length} first results / {currencies.length}
           </p>
-          {displayedCurrencies.map((el, index) => {
+          {displayedCurrencies.map((el) => {
             return (
               <Currency
                 key={el.id}
