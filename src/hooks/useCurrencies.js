@@ -11,7 +11,7 @@ export const useCurrencies = () => {
     const API_KEY = process.env.REACT_APP_API_KEY
     dispatch({ type: "FETCH_INIT" })
     fetch(
-      `https://api.nomics.com/v1/currencies/ticker?key=${API_KEY}&interval=1d,30d&convert=EUR&per-page=100&page=1`
+      `https://api.nomics.com/v1/currencies/ticker?key=${API_KEY}&interval=1d,30d&convert=EUR`
     )
       .then((response) => {
         console.log(response)

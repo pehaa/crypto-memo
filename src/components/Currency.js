@@ -17,6 +17,7 @@ const Currency = ({ currency, isActive, showDetails, hideDetails }) => {
         </h2>
         {isActive ? (
           <button
+            type="button"
             className="d-flex ms-auto btn btn-sm btn-dark"
             onClick={hideDetails}
           >
@@ -24,6 +25,7 @@ const Currency = ({ currency, isActive, showDetails, hideDetails }) => {
           </button>
         ) : (
           <button
+            type="button"
             className="d-flex ms-auto btn btn-sm btn-dark"
             onClick={() => showDetails(id)}
           >
