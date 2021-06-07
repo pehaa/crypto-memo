@@ -16,6 +16,7 @@ const Currency = ({ currency, isActive, setActive }) => {
         </h2>
         {isActive ? (
           <button
+            type="button"
             className="d-flex ms-auto btn btn-sm btn-dark"
             onClick={() => setActive(null)}
           >
@@ -23,6 +24,7 @@ const Currency = ({ currency, isActive, setActive }) => {
           </button>
         ) : (
           <button
+            type="button"
             className="d-flex ms-auto btn btn-sm btn-dark"
             onClick={() => setActive(id)}
           >
