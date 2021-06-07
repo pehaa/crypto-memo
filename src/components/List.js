@@ -1,10 +1,10 @@
 import { matchSorter } from "match-sorter"
 import { useState, useCallback, useMemo, memo } from "react"
-import { useCurrencies } from "../hooks/useCurrencies"
+import { useCurrenciesContext } from "../context/CurrenciesContext"
 import Currency from "./Currency"
 
 const List = () => {
-  const { error, loading, currencies } = useCurrencies()
+  const { error, loading, currencies } = useCurrenciesContext()
   const [filter, setFilter] = useState("")
   const [active, setActive] = useState(null)
   const displayedCurrencies = useMemo(() => {
